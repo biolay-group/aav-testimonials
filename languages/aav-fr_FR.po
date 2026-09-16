@@ -1,0 +1,175 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: AAV Client Reviews 1.2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-10\n"
+"PO-Revision-Date: 2026-07-10\n"
+"Last-Translator: Jean-Baptiste Biolay\n"
+"Language-Team: French\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Reviews"
+msgstr "Avis"
+
+msgid "Review"
+msgstr "Avis"
+
+msgid "Add Review"
+msgstr "Ajouter un avis"
+
+msgid "Edit Review"
+msgstr "Modifier l’avis"
+
+msgid "New Review"
+msgstr "Nouvel avis"
+
+msgid "Search Reviews"
+msgstr "Rechercher un avis"
+
+msgid "No reviews found"
+msgstr "Aucun avis"
+
+msgid "Client Reviews"
+msgstr "Avis clients"
+
+msgid "Destinations"
+msgstr "Destinations"
+
+msgid "Destination"
+msgstr "Destination"
+
+msgid "Add Destination"
+msgstr "Ajouter une destination"
+
+msgid "Themes"
+msgstr "Thèmes"
+
+msgid "Theme"
+msgstr "Thème"
+
+msgid "Add Theme"
+msgstr "Ajouter un thème"
+
+msgid "Review details"
+msgstr "Détails de l’avis"
+
+msgid "Quote"
+msgstr "Citation"
+
+msgid "The review text, without quotation marks."
+msgstr "Le texte de l’avis, sans guillemets."
+
+msgid "Locations (display)"
+msgstr "Lieux (affichage)"
+
+msgid "Shown under the name, e.g. “Paris • Brittany • London”."
+msgstr "Affiché sous le nom, ex. « Paris • Brittany • London »."
+
+msgid "Year"
+msgstr "Année"
+
+msgid "E.g. “2025”."
+msgstr "Ex. « 2025 »."
+
+msgid "Feature on homepage"
+msgstr "Mettre en avant sur l’accueil"
+
+msgid "Tick up to 6 reviews for the homepage."
+msgstr "Coche 6 avis maximum pour la page d’accueil."
+
+msgid "Client"
+msgstr "Client"
+
+msgid "★ Home"
+msgstr "★ Accueil"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "%d reviews are featured on the homepage. Only 6 are shown — please untick some."
+msgstr "%d avis sont mis en avant sur l’accueil. Seuls 6 sont affichés — pense à en décocher."
+
+msgid "Import reviews (CSV)"
+msgstr "Importer des avis (CSV)"
+
+msgid "Import (CSV)"
+msgstr "Importer (CSV)"
+
+msgid "Expected columns: %s. Separate multiple destinations or themes with a semicolon. Use “yes” in featured_home for the homepage."
+msgstr "Colonnes attendues : %s. Sépare plusieurs destinations ou thèmes par un point-virgule. Mets « yes » dans featured_home pour l’accueil."
+
+msgid "A review that already exists (same client + year) is updated, not duplicated."
+msgstr "Un avis existant (même client + même année) est mis à jour, pas dupliqué."
+
+msgid "Done: %1$d created, %2$d updated."
+msgstr "Terminé : %1$d créés, %2$d mis à jour."
+
+msgid "Import"
+msgstr "Importer"
+
+msgid "Experiences"
+msgstr "Expériences"
+
+msgid "Experience"
+msgstr "Expérience"
+
+msgid "Add Experience"
+msgstr "Ajouter une expérience"
+
+msgid "All Experiences"
+msgstr "Toutes les expériences"
+
+msgid "Photo"
+msgstr "Photo"
+
+msgid "Optional. Shown at the top of the card — a destination or trip photo works best."
+msgstr "Facultatif. Affichée en haut de la carte — une photo de destination ou de voyage fonctionne le mieux."
+
+msgid "Custom CTA link (optional)"
+msgstr "Lien CTA personnalisé (facultatif)"
+
+msgid "Leave empty to link automatically to the first Experience selected below."
+msgstr "Laisse vide pour créer automatiquement le lien vers la première expérience sélectionnée ci-dessous."
+
+msgid "Discover %s"
+msgstr "Découvrir %s"
+
+msgid "Available experience slugs:"
+msgstr "Slugs d’expérience disponibles :"
+
+msgid "Expected columns: %s. Separate multiple values with a semicolon."
+msgstr "Colonnes attendues : %s. Sépare les valeurs multiples par un point-virgule."
+
+msgid "Reviews settings"
+msgstr "Réglages des avis"
+
+msgid "Settings"
+msgstr "Réglages"
+
+msgid "Layout of the reviews"
+msgstr "Disposition des avis"
+
+msgid "Choose how the review cards are arranged on the “Client Stories” page and on the homepage section."
+msgstr "Choisis la façon dont les cartes d’avis sont disposées sur la page « Client Stories » et sur la section d’accueil."
+
+msgid "Layout"
+msgstr "Disposition"
+
+msgid "Grid"
+msgstr "Grille"
+
+msgid "Three equal cards per row. Clean and regular."
+msgstr "Trois cartes égales par ligne. Sobre et régulier."
+
+msgid "Editorial (magazine)"
+msgstr "Éditorial (magazine)"
+
+msgid "Three vertical cards, then one full-width horizontal card, alternating left and right. More rhythm, more premium."
+msgstr "Trois cartes verticales, puis une carte horizontale pleine largeur, alternée à gauche puis à droite. Plus de rythme, plus premium."
+
+msgid "You can also override this on a single page with the shortcode, e.g. [aav_client_stories layout=\"editorial\"]."
+msgstr "Tu peux aussi forcer la disposition sur une page donnée via le shortcode, ex. [aav_client_stories layout=\"editorial\"]."
