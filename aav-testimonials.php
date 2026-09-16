@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       AAV — Client Reviews (Testimonials)
  * Description:        Custom "Review" post type with Destination/Experience taxonomies, per-review photo and experience CTA, in-dashboard CSV import, and shortcodes for the homepage section and the "Client Stories" page. Editorial styling in the AAV bordeaux palette. Theme-independent.
- * Version:           1.5.4
+ * Version:           1.5.5
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Biolay Group
@@ -10,13 +10,12 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       aav
  * Domain Path:       /languages
- * GitHub Plugin URI: biolay-group/aav-testimonials
- * Primary Branch:    main
+ * Update URI:        https://github.com/biolay-group/aav-testimonials
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'AAV_VERSION', '1.5.3' );
+define( 'AAV_VERSION', '1.5.5' );
 
 /* ================================================================== *
  * 0. Traductions
@@ -443,9 +442,9 @@ function aav_render_card( $post_id, $cta_label = 'Discover the experience' ) {
 	$label = $cta_label;
 	if ( ! $link && ! empty( $exp_terms ) ) {
 		$link  = aav_experience_url( $exp_terms[0] );
-		/* Libelle volontairement non traduit : le front AAV est en anglais
+		/* Libellé volontairement non traduit : le front AAV est en anglais
 		   quelle que soit la locale du site. Personnalisable via le filtre
-		   aav_testimonials_cta_label (recoit le gabarit, %s = nom de l'experience). */
+		   aav_testimonials_cta_label (reçoit le gabarit, %s = nom de l'expérience). */
 		$label = sprintf(
 			apply_filters( 'aav_testimonials_cta_label', 'Discover %s' ),
 			$exp_terms[0]->name
@@ -713,4 +712,83 @@ add_action( 'wp_enqueue_scripts', function () {
 		.aav-grid--editorial .aav-card:nth-child(4n) .aav-card__quote{font-size:17.5px;}
 	}
 	' );
+} );
+
+/* ================================================================== *
+ * 11. MISES À JOUR DEPUIS GITHUB (releases publiques, sans extension tierce)
+ * -----------------------------------------------------------------
+ * Cycle de publication : incrémenter « Version » dans l'en-tête ET la
+ * constante AAV_VERSION, puis pousser sur main. L'Action GitHub crée le
+ * tag, la release et le zip ; WordPress propose alors la mise à jour.
+ * Dépôt privé : l'appel échoue silencieusement, mise à jour manuelle.
+ * ================================================================== */
+define( 'AAV_TST_FILE', plugin_basename( __FILE__ ) );
+define( 'AAV_TST_REPO', 'biolay-group/aav-testimonials' );
+
+add_filter( 'update_plugins_github.com', function ( $update, $plugin_data, $plugin_file ) {
+	if ( AAV_TST_FILE !== $plugin_file ) {
+		return $update;
+	}
+
+	$cache_key = 'aav_tst_gh_release';
+	$release   = get_transient( $cache_key );
+
+	if ( false === $release ) {
+		$res = wp_remote_get(
+			'https://api.github.com/repos/' . AAV_TST_REPO . '/releases/latest',
+			array(
+				'timeout' => 10,
+				'headers' => array(
+					'Accept'     => 'application/vnd.github+json',
+					'User-Agent' => 'AAV-Testimonials/' . AAV_VERSION,
+				),
+			)
+		);
+		if ( is_wp_error( $res ) || 200 !== wp_remote_retrieve_response_code( $res ) ) {
+			set_transient( $cache_key, array(), 15 * MINUTE_IN_SECONDS );
+			return $update;
+		}
+		$release = json_decode( wp_remote_retrieve_body( $res ), true );
+		set_transient( $cache_key, $release, 6 * HOUR_IN_SECONDS );
+	}
+
+	if ( empty( $release['tag_name'] ) ) {
+		return $update;
+	}
+
+	$remote = ltrim( $release['tag_name'], 'vV' );
+	if ( ! preg_match( '/^\d+(\.\d+)*$/', $remote ) ) {
+		return $update; // tag non conforme (ex. « Release ») : ignoré
+	}
+	if ( version_compare( $remote, $plugin_data['Version'], '<=' ) ) {
+		return $update;
+	}
+
+	$package = '';
+	if ( ! empty( $release['assets'] ) && is_array( $release['assets'] ) ) {
+		foreach ( $release['assets'] as $asset ) {
+			$url = isset( $asset['browser_download_url'] ) ? $asset['browser_download_url'] : '';
+			if ( $url && preg_match( '#^https://github\.com/#', $url ) && preg_match( '/\.zip$/i', $url ) ) {
+				$package = $url;
+				break;
+			}
+		}
+	}
+	if ( '' === $package && ! empty( $release['zipball_url'] ) ) {
+		$package = $release['zipball_url'];
+	}
+	if ( '' === $package ) {
+		return $update;
+	}
+
+	return array(
+		'slug'    => dirname( AAV_TST_FILE ),
+		'version' => $remote,
+		'url'     => 'https://github.com/' . AAV_TST_REPO,
+		'package' => $package,
+	);
+}, 10, 3 );
+
+add_action( 'upgrader_process_complete', function () {
+	delete_transient( 'aav_tst_gh_release' );
 } );
