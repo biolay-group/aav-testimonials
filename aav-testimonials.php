@@ -10,6 +10,8 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       aav
  * Domain Path:       /languages
+ * GitHub Plugin URI: biolay-group/aav-testimonials
+ * Primary Branch:    main
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
